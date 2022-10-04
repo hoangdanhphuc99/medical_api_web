@@ -14,6 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group([
+    'prefix' => 'admin',
+    'as' => 'admin.',
+], function () {
+
+
+    Route::post('/login', 'App\Http\Controllers\API\Admin\AuthController@login');
+    Route::post('/register', 'App\Http\Controllers\API\Admin\AuthController@register');
+    Route::get('/profile', 'App\Http\Controllers\API\Admin\AuthController@info');
+    Route::middleware('authv1:api')->group(function () {
+
+        Route::apiResource('categories', App\Http\Controllers\API\Admin\ListCategoryController::class);
+        Route::post('upload_image', 'App\Http\Controllers\API\Admin\UploadController::class@uploadImg');
+
+    });
 });
