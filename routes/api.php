@@ -27,6 +27,7 @@ Route::group([
 
         Route::apiResource('categories', App\Http\Controllers\API\Admin\ListCategoryController::class);
         Route::post('upload_image', 'App\Http\Controllers\API\Admin\UploadController@uploadImg');
+        Route::apiResource('posts', App\Http\Controllers\API\Admin\PostController::class);
 
     });
 });

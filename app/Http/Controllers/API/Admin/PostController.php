@@ -1,18 +1,18 @@
 <?php
 
 namespace App\Http\Controllers\API\Admin;
-use App\Repositories\Category\CategoryRepositoryInterface;
-use App\models\Category;
+use App\Repositories\Post\PostRepositoryInterface;
+use App\models\Post;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ListCategoryController extends Controller
+class PostController extends Controller
 {
-    protected $CategoryRepo;
+    protected $PostRepo;
 
-    public function __construct(CategoryRepositoryInterface $CategoryRepo)
+    public function __construct(PostRepositoryInterface $PostRepo)
     {
-        $this->CategoryRepo = $CategoryRepo;
+        $this->PostRepo = $PostRepo;
 
     }
     /**
@@ -22,9 +22,9 @@ class ListCategoryController extends Controller
      */
     public function index()
     {
-        $CategoryRepo = $this->CategoryRepo->getCategory();
+        $PostRepo = $this->PostRepo->getPost();
              return $this->successResponse(
-            $CategoryRepo,
+            $PostRepo,
             null,
             200
         );
@@ -39,12 +39,14 @@ class ListCategoryController extends Controller
     public function store(Request $request)
     {
         try {
+            $result = $this->PostRepo->create([
+                'image_URL' => $request->image_URL,
+                'name' => $request->name,
+                'status' => $request->status,
+                'description' => $request->description,
+                'detail' => $request->detail,
+                'category_id' => $request->category_id
 
-            $result = $this->CategoryRepo->create([
-
-                'title' => $request->title,
-                'content' => $request->content,
-                'image_url' => $request->image_url
             ]);
             return $this->successResponse(
                 $result,
@@ -52,7 +54,7 @@ class ListCategoryController extends Controller
                 201
             );
         } catch (\throwable $err) {
-            return $$err;
+            return $err;
         }
     }
 
@@ -64,14 +66,14 @@ class ListCategoryController extends Controller
      */
     public function show($id)
     {
-        $CategoryRepo = $this->CategoryRepo->find($id);
-        if (!$CategoryRepo)
+        $PostRepo = $this->PostRepo->find($id);
+        if (!$PostRepo)
             return $this->errorResponse(
-                "Danh mục không tồn tại",
+                "Bài viết không tồn tại",
                 403
             );
         return $this->successResponse(
-            $CategoryRepo,
+            $PostRepo,
             201
         );
     }
@@ -86,21 +88,22 @@ class ListCategoryController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $CategoryRepo = $this->CategoryRepo->find($id);
-            if (!$CategoryRepo)
+            $PostRepo = $this->PostRepo->find($id);
+            if (!$PostRepo)
                 return $this->errorResponse(
-                    "Danh mục không tồn tại",
+                    "Bài viết không tồn tại",
                     403
                 );
-            $result = $this->CategoryRepo->update($id, [
-                'title' => $request->title,
-                'content' => $request->content,
-                'image_url' => $request->image_url
-
+            $result = $this->PostRepo->update($id, [
+                'image_URL' => $request->image_URL,
+                'name' => $request->name,
+                'status' => $request->status,
+                'description' => $request->description,
+                'detail' => $request->detail,
+                'category_id' => $request->category_id
             ]);
             return $this->successResponse(
-                $result,
-                201
+                $result
             );
         } catch (\Throwable $th) {
             throw $th;
@@ -116,13 +119,13 @@ class ListCategoryController extends Controller
     public function destroy($id)
     {
         try {
-            $CategoryRepo = $this->CategoryRepo->find($id);
-            if (!$CategoryRepo)
+            $PostRepo = $this->PostRepo->find($id);
+            if (!$PostRepo)
                 return $this->errorResponse(
-                    "Danh mục không tồn tại",
+                    "Bài viết không tồn tại",
                     403
                 );
-            $this->CategoryRepo->delete($id);
+            $this->PostRepo->delete($id);
             return $this->successResponse();
         } catch (\Throwable $th) {
             throw $th;
