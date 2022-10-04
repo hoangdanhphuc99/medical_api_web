@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API\Admin;
-
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -16,7 +16,25 @@ class UploadController extends Controller
     {
         //
     }
+    public function uploadImg(Request $request){
+        if ($request->hasFile('image_url')) {
 
+            $image      = $request->file('image_url');
+
+            $path = $image->store('images');
+            return $this->successResponse(
+                ["image_url" => $path],
+                "Upload thành công",
+                201
+            );
+        }
+        else{
+            return $this->errorResponse(
+                "Upload không thành công",
+            );
+        }
+
+    }
     /**
      * Store a newly created resource in storage.
      *

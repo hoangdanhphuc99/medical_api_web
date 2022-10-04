@@ -26,7 +26,7 @@ Route::group([
     Route::middleware('authv1:api')->group(function () {
 
         Route::apiResource('categories', App\Http\Controllers\API\Admin\ListCategoryController::class);
-        Route::post('upload_image', 'App\Http\Controllers\API\Admin\UploadController::class@uploadImg');
+        Route::post('upload_image', 'App\Http\Controllers\API\Admin\UploadController@uploadImg');
 
     });
 });
