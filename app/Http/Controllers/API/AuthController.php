@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API;
-use App\models\User;
+use App\Models\User;
 use Hash;
 use Str;
 use App\Http\Controllers\Controller;

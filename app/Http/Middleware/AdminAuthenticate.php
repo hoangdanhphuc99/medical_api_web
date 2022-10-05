@@ -18,6 +18,7 @@ class AdminAuthenticate
     public function handle(Request $request, Closure $next, ...$guards)
     {
         error_reporting(0);
+        
         $resposeFail = [
             'msg_code' => 'ERROR',
             'msg' => "Invalid Token",

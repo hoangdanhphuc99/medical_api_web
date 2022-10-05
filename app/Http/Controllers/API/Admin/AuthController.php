@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API\Admin;
-use App\models\Admin;
+use App\Models\Admin;
 use Hash;
 use Str;
 use App\Http\Controllers\Controller;
