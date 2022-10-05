@@ -13,9 +13,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
+
+Route::group([
+    'prefix' => 'place',
+    'as' => 'place.',
+], function () {
+    Route::get('/provinces', 'App\Http\Controllers\API\Share\PlaceController@getProvinces');
+    Route::get('/districts/{id}', 'App\Http\Controllers\API\Share\PlaceController@getDistricts');
+    Route::get('/wards/{id}', 'App\Http\Controllers\API\Share\PlaceController@getWards');
+});
+
 Route::group([], function () {
     Route::post('/login', 'App\Http\Controllers\API\AuthController@login');
     Route::post('/register', 'App\Http\Controllers\API\AuthController@register');
+    Route::post('/check_phone', 'App\Http\Controllers\API\AuthController@checkPhone');
+    Route::post('/reset_password', 'App\Http\Controllers\API\AuthController@resetPassword');
+
     Route::middleware('auth_user:api')->group(function () {
         Route::get('/profile', 'App\Http\Controllers\API\AuthController@info');
 
@@ -42,9 +57,13 @@ Route::group([
     'as' => 'admin.',
 ], function () {
 
+    Route::post('/check_phone', 'App\Http\Controllers\API\Admin\AuthController@checkPhone');
 
     Route::post('/login', 'App\Http\Controllers\API\Admin\AuthController@login');
     Route::post('/register', 'App\Http\Controllers\API\Admin\AuthController@register');
+    Route::post('/reset_password', 'App\Http\Controllers\API\Admin\AuthController@resetPassword');
+
+
     Route::middleware('auth_admin:api')->group(function () {
         Route::get('/profile', 'App\Http\Controllers\API\Admin\AuthController@info');
 

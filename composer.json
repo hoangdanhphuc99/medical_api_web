@@ -7,10 +7,13 @@
     "require": {
         "php": "^8.0.2",
         "doctrine/dbal": "^3.4",
+        "fruitcake/laravel-cors": "^3.0",
         "guzzlehttp/guzzle": "^7.2",
+        "kreait/laravel-firebase": "^4.2",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
-        "laravel/tinker": "^2.7"
+        "laravel/tinker": "^2.7",
+        "vanthao03596/laravel-hanhchinhvn": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
