@@ -17,7 +17,6 @@ class UserAuthenticate
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
-        error_reporting(0);
         $resposeFail = [
             'msg_code' => 'ERROR',
             'msg' => "Token không hợp lệ",

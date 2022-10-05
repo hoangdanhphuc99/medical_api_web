@@ -49,6 +49,27 @@ class AuthController extends Controller
             ], "Đăng nhập thành công", 201);
         }
     }
+
+
+    public function checkPhone(Request $request)
+    {
+        try {
+            $users = User::where("phone_number" , $request->phone_number)->first();
+            if ($users) {
+                return $this->successResponse([], "Số điện thoại hợp lệ", 201);
+            } else {
+                return $this->errorResponse(
+                    "Số điện thoại không tồn tại",
+                    401
+                );
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+
+
+
     public function register(Request $request)
     {
         try {

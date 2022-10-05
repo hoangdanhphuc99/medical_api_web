@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API\Admin;
+use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\User\UserRepositoryInterface;
@@ -31,7 +32,7 @@ class UserController extends Controller
      * @header Accept application/json
      */
 
-    public function index(Request $request)
+    public function index()
     {
         $userRepo = $this->userRepo->getUser();
         return $this->successResponse(

@@ -17,8 +17,7 @@ class AdminAuthenticate
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
-        error_reporting(0);
-        
+
         $resposeFail = [
             'msg_code' => 'ERROR',
             'msg' => "Invalid Token",
@@ -27,6 +26,7 @@ class AdminAuthenticate
             "code" => 401
         ];
         $token  = $request->header('admin_token') ?? null;
+
         if ($token) {
             $user = Admin::where('api_token',  $token)->first();
             if ($user) {
