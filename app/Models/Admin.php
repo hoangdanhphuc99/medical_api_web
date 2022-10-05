@@ -20,7 +20,7 @@ class Admin extends Model
     ];
     static function adminInfo()
     {
-        $token  = Request::header('token') ?? null;
+        $token  = Request::header('admin_token') ?? null;
         if ($token) {
             $user = Admin::where('api_token',  $token)->first();
             if ($user) {

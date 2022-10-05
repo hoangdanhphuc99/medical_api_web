@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use Request;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,7 +22,31 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'api_token',
+        'phone_number',
+        'address',
+        "sex",
+        "birthday",
+        "job",
+        "height",
+        "pathology",
+        "weight",
+        "service_point",
+        "other_info",
     ];
+
+    static function userInfo()
+    {
+        $token  = Request::header('token') ?? null;
+        if ($token) {
+            $user = User::where('api_token',  $token)->first();
+            if ($user) {
+                return $user;
+            } else {
+                return null;
+            }
+        }
+    }
 
     /**
      * The attributes that should be hidden for serialization.

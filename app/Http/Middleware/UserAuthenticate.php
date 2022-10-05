@@ -4,9 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use App\Models\Admin;
+use App\Models\User;
 use Hash;
-class AuthenticateV1
+class UserAuthenticate
 {
     /**
      * Handle an incoming request.
@@ -20,14 +20,14 @@ class AuthenticateV1
         error_reporting(0);
         $resposeFail = [
             'msg_code' => 'ERROR',
-            'msg' => "Invalid Token",
+            'msg' => "Token không hợp lệ",
             'data' => [],
             "success" => false,
             "code" => 401
         ];
         $token  = $request->header('token') ?? null;
         if ($token) {
-            $user = Admin::where('api_token',  $token)->first();
+            $user = User::where('api_token',  $token)->first();
             if ($user) {
                 return $next($request);
             } else

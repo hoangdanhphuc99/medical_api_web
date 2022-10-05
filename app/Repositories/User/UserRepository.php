@@ -1,17 +1,17 @@
 <?php
-namespace App\Repositories\Post;
+namespace App\Repositories\User;
 
 use App\Repositories\BaseRepository;
 
-class PostRepository extends BaseRepository implements PostRepositoryInterface
+class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
     //lấy model tương ứng
     public function getModel()
     {
-        return \App\Models\Post::class;
+        return \App\Models\User::class;
     }
 
-    public function getPost()
+    public function getUser()
     {
         return $this->model->with("category")->paginate(20);
     }
