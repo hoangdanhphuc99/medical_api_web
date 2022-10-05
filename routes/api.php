@@ -14,8 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group([
-], function () {
+Route::group([], function () {
     Route::post('/login', 'App\Http\Controllers\API\AuthController@login');
     Route::post('/register', 'App\Http\Controllers\API\AuthController@register');
     Route::middleware('auth_user:api')->group(function () {
@@ -24,7 +23,7 @@ Route::group([
         // Route::apiResource('categories', App\Http\Controllers\API\ListCategoryController::class);
         Route::group(['prefix' => 'categories'], function () {
 
-          
+
             Route::get('/', 'App\Http\Controllers\API\ListCategoryController@index');
             Route::get('/{id}', 'App\Http\Controllers\API\ListCategoryController@show');
         });
@@ -32,11 +31,10 @@ Route::group([
         // Route::apiResource('posts', App\Http\Controllers\API\PostController::class);
         Route::group(['prefix' => 'posts'], function () {
 
-          
+
             Route::get('/', 'App\Http\Controllers\API\PostController@index');
             Route::get('/{id}', 'App\Http\Controllers\API\PostController@show');
         });
-
     });
 });
 
@@ -55,9 +53,5 @@ Route::group([
         Route::post('upload_image', 'App\Http\Controllers\API\Admin\UploadController@uploadImg');
         Route::apiResource('posts', App\Http\Controllers\API\Admin\PostController::class);
         Route::apiResource('users', App\Http\Controllers\API\Admin\UserController::class);
-
-
     });
 });
-
-

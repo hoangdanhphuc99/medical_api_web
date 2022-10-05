@@ -3,7 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use  Illuminate\Support\Facades\Schema; 
+use  Illuminate\Support\Facades\Schema;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -22,6 +23,11 @@ class AppServiceProvider extends ServiceProvider
 
             \App\Repositories\Post\PostRepositoryInterface::class,
             \App\Repositories\Post\PostRepository::class
+        );
+        $this->app->singleton(
+            \App\Repositories\User\UserRepositoryInterface::class,
+
+            \App\Repositories\User\UserRepository::class
         );
     }
 
