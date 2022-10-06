@@ -18,16 +18,13 @@ class AdminAuthenticate
     public function handle(Request $request, Closure $next, ...$guards)
     {
         $token  = $request->header('admin-token') ?? null;
-        $token_user  = $request->header('token') ?? null;
 
         $resposeFail = [
             'msg_code' => 'ERROR',
-            'msg' => "Invalid Token",
+            'msg' => "Token không hợp lệ",
             'data' => [],
             "success" => false,
             "code" => 401,
-            "token-header" => $token,
-            "token-user" => $token_user,
 
         ];
 
