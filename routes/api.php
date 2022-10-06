@@ -48,17 +48,15 @@ Route::group([], function () {
 
         // Route::apiResource('categories', App\Http\Controllers\API\ListCategoryController::class);
 
+        Route::group(['prefix' => 'user_tests'], function () {
+            Route::get('/', 'App\Http\Controllers\API\UserTestController@index');
+            Route::get('/detail', 'App\Http\Controllers\API\UserTestController@userDetail');
+            Route::get('/{id}', 'App\Http\Controllers\API\UserTestController@show');
+        });
 
 
             Route::get('/', 'App\Http\Controllers\API\ListCategoryController@index');
             Route::get('/{id}', 'App\Http\Controllers\API\ListCategoryController@show');
-        });
-        Route::group(['prefix' => 'user_tests'], function () {
-
-
-            Route::get('/', 'App\Http\Controllers\API\UserTestController@index');
-            Route::get('/detail', 'App\Http\Controllers\API\UserTestController@userDetail');
-            Route::get('/{id}', 'App\Http\Controllers\API\UserTestController@show');
         });
 
 
