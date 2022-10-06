@@ -32,7 +32,7 @@ class AdminAuthenticate
             if ($user) {
                 return $next($request);
             } else
-                return response()->json($resposeFail, 401);
+                return response()->json($user, 401);
         } else {
             return response()->json($resposeFail, 401);
         }
