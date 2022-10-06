@@ -41,7 +41,7 @@ Route::group([], function () {
             Route::get('/', 'App\Http\Controllers\API\ListCategoryController@index');
             Route::get('/{id}', 'App\Http\Controllers\API\ListCategoryController@show');
         });
-        Route::post('upload_image', 'App\Http\Controllers\API\UploadController@uploadImg');
+        Route::post('/upload/images', 'App\Http\Controllers\API\UploadController@uploadImg');
         // Route::apiResource('posts', App\Http\Controllers\API\PostController::class);
         Route::group(['prefix' => 'posts'], function () {
 
@@ -68,7 +68,8 @@ Route::group([
         Route::get('/profile', 'App\Http\Controllers\API\Admin\AuthController@info');
 
         Route::apiResource('categories', App\Http\Controllers\API\Admin\ListCategoryController::class);
-        Route::post('upload_image', 'App\Http\Controllers\API\Admin\UploadController@uploadImg');
+        Route::post('/upload/images', 'App\Http\Controllers\API\Admin\UploadController@uploadImg');
+
         Route::apiResource('posts', App\Http\Controllers\API\Admin\PostController::class);
         Route::apiResource('users', App\Http\Controllers\API\Admin\UserController::class);
     });

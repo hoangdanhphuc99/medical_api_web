@@ -19,13 +19,13 @@ class UploadController extends Controller
     }
     public function uploadImg(Request $request)
     {
-        if ($request->hasFile('image_url')) {
+        if ($request->hasFile('image')) {
 
-            $image      = $request->file('image_url');
+            $image      = $request->file('image');
 
-            $path = $image->store('images');
+            $path = $image->store('images' , 'public');
             return $this->successResponse(
-                ["image_url" => $path],
+                ["image_url" => \config('ultis.root_url') .'/storage/images/'. basename($path)],
                 "Upload thành công",
                 201
             );
