@@ -17,7 +17,7 @@ class AdminAuthenticate
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
-        $token  = $request->header('admin_token') ?? null;
+        $token  = $request->header('token_admin') ?? null;
         $token_user  = $request->header('token') ?? null;
 
         $resposeFail = [
