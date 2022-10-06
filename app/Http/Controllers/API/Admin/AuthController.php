@@ -97,6 +97,32 @@ class AuthController extends Controller
         //
     }
 
+    public function changePassWord(Request $request)
+    {
+        try {
+            $user = Admin::adminInfo();
+            if (!$user)
+                return $this->errorResponse(
+                    "Người dùng không tồn tại",
+                    401
+                );
+            if (!Hash::check($request->password, $user->password))
+                return $this->errorResponse(
+                    "Mật khẩu không hợp lệ",
+                    401
+                );
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+            return $this->successResponse(
+                $user,
+                null,
+                201
+            );
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
     /**
      * Update the specified resource in storage.
      *

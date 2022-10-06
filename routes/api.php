@@ -32,7 +32,6 @@ Route::group([], function () {
     Route::post('/reset_password', 'App\Http\Controllers\API\AuthController@resetPassword');
     Route::group(['prefix' => 'posts'], function () {
 
-
         Route::get('/', 'App\Http\Controllers\API\PostController@index');
         Route::get('/{id}', 'App\Http\Controllers\API\PostController@show');
     });
@@ -45,6 +44,7 @@ Route::group([], function () {
     Route::middleware('auth_user:api')->group(function () {
         Route::get('/profile', 'App\Http\Controllers\API\AuthController@info');
         Route::put('/profile', 'App\Http\Controllers\API\AuthController@updateInfo')->name('user.update');
+        Route::post('/change_password', 'App\Http\Controllers\API\AuthController@changePassword');
 
         // Route::apiResource('categories', App\Http\Controllers\API\ListCategoryController::class);
 
@@ -81,6 +81,7 @@ Route::group([
     Route::middleware('auth_admin:api')->group(function () {
         Route::get('/profile', 'App\Http\Controllers\API\Admin\AuthController@info');
         Route::put('/profile', 'App\Http\Controllers\API\Admin\AuthController@updateInfo')->name('user.update');
+        Route::post('/change_password', 'App\Http\Controllers\API\Admin\AuthController@changePassword');
 
         Route::apiResource('posts_categories', App\Http\Controllers\API\Admin\ListCategoryController::class);
         Route::post('/upload/images', 'App\Http\Controllers\API\Admin\UploadController@uploadImg');
