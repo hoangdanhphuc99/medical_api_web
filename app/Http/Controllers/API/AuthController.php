@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API;
-
+use App\Http\Requests\User\InsertLoginUserRequest;
 use App\Models\User;
 use Hash;
 use Str;
@@ -20,7 +20,7 @@ class AuthController extends Controller
     {
         //
     }
-    public function login(Request $request)
+    public function login(InsertLoginUserRequest $request)
     {
         $user = User::where('phone_number', $request->phone_number)->first();
 

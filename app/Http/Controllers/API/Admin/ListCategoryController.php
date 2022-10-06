@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Admin;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\listCategory\inserListCtegoryRequest;
 use Illuminate\Http\Request;
 
 class ListCategoryController extends Controller
@@ -21,7 +22,7 @@ class ListCategoryController extends Controller
      */
     public function index()
     {
-        
+
         $CategoryRepo = $this->CategoryRepo->getCategory();
              return $this->successResponse(
             $CategoryRepo,
@@ -36,7 +37,7 @@ class ListCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(inserListCtegoryRequest $request)
     {
         try {
 

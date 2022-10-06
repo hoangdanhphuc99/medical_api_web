@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\API\Admin;
 use App\Repositories\UserTest\UserTestRepositoryInterface;
+use App\Http\Requests\User\UserTest\UpdateUserTestRequest;
+use App\Http\Requests\User\UserTest\InsertUserTestRequest;
 use App\Models\UserTest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -36,7 +38,7 @@ class UserTestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(InsertUserTestRequest $request)
     {
         try {
             $result = $this->userTestRepo->create([
@@ -84,7 +86,7 @@ class UserTestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserTestRequest $request, $id)
     {
         try {
             $userTestRepo = $this->userTestRepo->find($id);
