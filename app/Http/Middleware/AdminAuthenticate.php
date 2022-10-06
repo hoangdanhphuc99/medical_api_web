@@ -18,6 +18,7 @@ class AdminAuthenticate
     public function handle(Request $request, Closure $next, ...$guards)
     {
         $token  = $request->header('admin_token') ?? null;
+        $token_user  = $request->header('token') ?? null;
 
         $resposeFail = [
             'msg_code' => 'ERROR',
@@ -25,7 +26,9 @@ class AdminAuthenticate
             'data' => [],
             "success" => false,
             "code" => 401,
-            "token-header" => $token
+            "token-header" => $token,
+            "token-user" => $token_user,
+
         ];
 
         if ($token) {
