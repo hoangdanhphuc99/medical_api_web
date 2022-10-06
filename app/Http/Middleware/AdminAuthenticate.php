@@ -17,22 +17,23 @@ class AdminAuthenticate
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
+        $token  = $request->header('admin-token') ?? null;
 
         $resposeFail = [
             'msg_code' => 'ERROR',
-            'msg' => "Invalid Token",
+            'msg' => "Token không hợp lệ",
             'data' => [],
             "success" => false,
-            "code" => 401
+            "code" => 401,
+
         ];
-        $token  = $request->header('admin_token') ?? null;
 
         if ($token) {
             $user = Admin::where('api_token',  $token)->first();
             if ($user) {
                 return $next($request);
             } else
-                return response()->json($resposeFail, 401);
+                return response()->json($user, 401);
         } else {
             return response()->json($resposeFail, 401);
         }
