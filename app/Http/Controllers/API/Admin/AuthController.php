@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\API\Admin;
-
+use App\Http\Requests\Admin\Login\LoginAdminRequest;
+use App\Http\Requests\User\RegisterUserRequest;
+use App\Http\Requests\User\UpdateRegisterAdminRequest;
 use App\Models\Admin;
 use Hash;
 use Str;
@@ -20,7 +22,7 @@ class AuthController extends Controller
     {
         //
     }
-    public function login(Request $request)
+    public function login(LoginAdminRequest $request)
     {
         $user = Admin::where('phone_number', $request->phone_number)->first();
 
@@ -52,7 +54,7 @@ class AuthController extends Controller
             ], "Đăng nhập thành công", 201);
         }
     }
-    public function register(Request $request)
+    public function register(RegisterUserRequest $request)
     {
         try {
             return $this->successResponse(Admin::create([

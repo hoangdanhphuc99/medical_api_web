@@ -5,7 +5,8 @@ use App\Repositories\Post\PostRepositoryInterface;
 use App\Models\Post;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\User\Post\StorePostRequest;
+use App\Http\Requests\User\Post\UpdatePostRequest;
 class PostController extends Controller
 {
     protected $PostRepo;
@@ -36,7 +37,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
         try {
             $result = $this->PostRepo->create([
@@ -85,7 +86,7 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePostRequest $request, $id)
     {
         try {
             $PostRepo = $this->PostRepo->find($id);

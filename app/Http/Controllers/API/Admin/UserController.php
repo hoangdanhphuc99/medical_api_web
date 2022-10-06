@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\API\Admin;
 use Illuminate\Http\Request;
 
-
+use App\Http\Requests\User\RegisterUserRequest;
+use App\Http\Requests\User\UpdateRegisterUserRequest;
 use App\Http\Controllers\Controller;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Models\User;
@@ -62,7 +63,7 @@ class UserController extends Controller
      * @bodyParam sex string  Giới tính. Example: 0 là không xác định, 1 là nam , 2 là nữ
      * @bodyParam position string   Chức vụ/ vị trí. Example: kế toán
      */
-    public function store(Request $request)
+    public function store(RegisterUserRequest $request)
     {
         try {
             $result = $this->userRepo->create($request->all());
@@ -124,7 +125,7 @@ class UserController extends Controller
      * @bodyParam sex string  Giới tính. Example: 0 là không xác định, 1 là nam , 2 là nữ
      * @bodyParam position string   Chức vụ/ vị trí. Example: kế toán
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRegisterUserRequest $request, $id)
     {
         try {
             $userRepo = $this->userRepo->find($id);
