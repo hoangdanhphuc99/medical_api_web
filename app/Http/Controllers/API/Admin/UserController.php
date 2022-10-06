@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API\Admin;
-
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Models\User;
@@ -12,15 +12,12 @@ use Hash;
 
 class UserController extends Controller
 {
-    protected $userPermissonRepo;
+
     protected $userRepo;
-    protected $transcriptRepo;
-    protected $termQuizRepo;
-    protected $departmentCourseRepo;
-    protected $studyRepo;
-    public function __construct(User $user, UserRepositoryInterface $userRepo)
+
+    public function __construct( UserRepositoryInterface $userRepo)
     {
-        $this->user = $user->userInfo();
+
         $this->userRepo = $userRepo;
     }
 

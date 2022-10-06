@@ -55,7 +55,6 @@ class AuthController extends Controller
             return $this->successResponse(User::create([
                 'name' => $request->name,
                 'phone_number' => $request->phone_number,
-                'user_name' => $request['user_name'],
                 'email' => $request['email'],
                 'password' => Hash::make($request['password']),
                 // 'api_token' => Str::random(60),

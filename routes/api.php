@@ -53,5 +53,6 @@ Route::group([
         Route::post('upload_image', 'App\Http\Controllers\API\Admin\UploadController@uploadImg');
         Route::apiResource('posts', App\Http\Controllers\API\Admin\PostController::class);
         Route::apiResource('users', App\Http\Controllers\API\Admin\UserController::class);
+        Route::apiResource('user_tests', App\Http\Controllers\API\Admin\UserTestController::class);
     });
 });
