@@ -1,6 +1,6 @@
 <?php
 namespace App\Repositories\UserTest;
-
+use App\Models\User;
 use App\Repositories\BaseRepository;
 
 class UserTestRepository extends BaseRepository implements UserTestRepositoryInterface
@@ -14,5 +14,9 @@ class UserTestRepository extends BaseRepository implements UserTestRepositoryInt
     public function getUserTest()
     {
         return $this->model->paginate(20);
+    }
+    public function getUserTestDetail(){
+        return $this->model->where('user_id',User::userInfo()->id)->get();
+
     }
 }

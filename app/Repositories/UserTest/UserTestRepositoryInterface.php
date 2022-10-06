@@ -7,4 +7,5 @@ interface UserTestRepositoryInterface extends RepositoryInterface
 {
     //ví dụ: lấy 5 sản phầm đầu tiên
     public function getUserTest();
+    public function getUserTestDetail();
 }

@@ -42,6 +42,13 @@ Route::group([], function () {
             Route::get('/', 'App\Http\Controllers\API\ListCategoryController@index');
             Route::get('/{id}', 'App\Http\Controllers\API\ListCategoryController@show');
         });
+        Route::group(['prefix' => 'user_tests'], function () {
+
+
+            Route::get('/', 'App\Http\Controllers\API\UserTestController@index');
+            Route::get('/detail', 'App\Http\Controllers\API\UserTestController@userDetail');
+            Route::get('/{id}', 'App\Http\Controllers\API\UserTestController@show');
+        });
         Route::post('/upload/images', 'App\Http\Controllers\API\UploadController@uploadImg');
         // Route::apiResource('posts', App\Http\Controllers\API\PostController::class);
         Route::group(['prefix' => 'posts'], function () {
