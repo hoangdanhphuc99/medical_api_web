@@ -64,15 +64,15 @@ Route::group([
     Route::post('/register', 'App\Http\Controllers\API\Admin\AuthController@register');
     Route::post('/reset_password', 'App\Http\Controllers\API\Admin\AuthController@resetPassword');
 
+    Route::apiResource('posts', App\Http\Controllers\API\Admin\PostController::class);
+    Route::apiResource('posts_categories', App\Http\Controllers\API\Admin\ListCategoryController::class);
 
     Route::middleware('auth_admin:api')->group(function () {
         Route::get('/profile', 'App\Http\Controllers\API\Admin\AuthController@info');
         Route::put('/profile', 'App\Http\Controllers\API\Admin\AuthController@updateInfo')->name('user.update');
 
-        Route::apiResource('posts_categories', App\Http\Controllers\API\Admin\ListCategoryController::class);
         Route::post('/upload/images', 'App\Http\Controllers\API\Admin\UploadController@uploadImg');
 
-        Route::apiResource('posts', App\Http\Controllers\API\Admin\PostController::class);
         Route::apiResource('users', App\Http\Controllers\API\Admin\UserController::class);
         Route::apiResource('user_tests', App\Http\Controllers\API\Admin\UserTestController::class);
     });
