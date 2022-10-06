@@ -26,9 +26,8 @@ class UpdateRegisterUserRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'password' => 'required|max:255|min:6',
-            'phone_number' => 'required|max:10|min:10|unique:users,phone_number',
-            'email' => 'unique:users,email',
+            'phone_number' => 'required|max:11|min:10|unique:users,phone_number,'.$this->id,
+            'email' => 'unique:users,email,'.$this->id,
 
         ];
     }
@@ -36,12 +35,10 @@ class UpdateRegisterUserRequest extends FormRequest
     {
         return [
             'name.required' => 'Tên không được để trống',
-            'password.required' => 'mật khẩu không được để trống',
-            'password.min' => 'mật khẩu phải dài hơn 6 kí tự',
             'phone_number.required' => 'Số điện thoại không được để trống',
-            'phone_number.min' => 'Số điện thoại phải đủ 10 số',
+            'phone_number.min' => 'Số điện thoại không đúng định dạng',
             'phone_number.unique' => 'Số điện thoại đã có trong cơ sở dữ liệu',
-            'phone_number.max' => 'Số điện thoại chỉ có 10 số',
+            'phone_number.max' => 'Số điện thoại không đúng định dạng',
             'email.required' => 'email không được để trống',
             'email.email' => 'phải là một địa chỉ email hợp lệ',
             'email.unique' => 'Email đã có trong cơ sở dữ liệu',

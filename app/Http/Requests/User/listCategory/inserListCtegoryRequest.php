@@ -26,6 +26,8 @@ class inserListCtegoryRequest extends FormRequest
     {
         return [
             'title' => 'required',
+            'image_url' => 'required',
+
             'description'=>'required',
 
 
@@ -34,6 +36,7 @@ class inserListCtegoryRequest extends FormRequest
     public function messages()
     {
         return [
+            'image_url.required' => 'Ảnh không được để trống',
 
             'title.required' => 'Tiêu đề không được để trống',
             'description.required' => 'Nội dung được để trống',
