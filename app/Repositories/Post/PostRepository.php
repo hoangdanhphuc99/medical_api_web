@@ -13,6 +13,6 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
 
     public function getPost()
     {
-        return $this->model->with("category")->paginate(20);
+        return $this->model->filter(request()->all())->with("category")->paginate(20);
     }
 }

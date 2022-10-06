@@ -13,7 +13,7 @@ class UserTestRepository extends BaseRepository implements UserTestRepositoryInt
 
     public function getUserTest()
     {
-        return $this->model->paginate(20);
+        return $this->model->filter(request()->all())->get();
     }
     public function getUserTestDetail(){
         return $this->model->where('user_id', User::userInfo()->id)->get();
