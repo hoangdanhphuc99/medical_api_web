@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\API\Admin;
 use App\Repositories\Category\CategoryRepositoryInterface;
-use App\models\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -22,6 +21,7 @@ class ListCategoryController extends Controller
      */
     public function index()
     {
+        
         $CategoryRepo = $this->CategoryRepo->getCategory();
              return $this->successResponse(
             $CategoryRepo,

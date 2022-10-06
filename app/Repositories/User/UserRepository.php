@@ -13,6 +13,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function getUser()
     {
-        return $this->model->with("category")->paginate(20);
+        return $this->model->paginate(20);
     }
 }

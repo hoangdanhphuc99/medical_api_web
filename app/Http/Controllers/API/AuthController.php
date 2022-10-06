@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\API;
-use App\models\User;
+
+use App\Models\User;
 use Hash;
 use Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Kreait\Firebase\Factory;
 
 class AuthController extends Controller
 {
@@ -18,7 +20,8 @@ class AuthController extends Controller
     {
         //
     }
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $user = User::where('phone_number', $request->phone_number)->first();
 
         if (!$user) {
@@ -27,15 +30,15 @@ class AuthController extends Controller
 
         if (!Hash::check($request->password, $user->password)) {
             return $this->errorResponse('Số điện thoại hoặc mật khẩu không hợp lệ', 401);
-        }    else {
+        } else {
             $token_user = User::where('phone_number', $request->phone_number)->first()->api_token;
-            if($token_user)
-            return $this->successResponse([
-                "token" =>  $token_user,
-                "user" => $user
+            if ($token_user)
+                return $this->successResponse([
+                    "token" =>  $token_user,
+                    "user" => $user
 
 
-            ], "Đăng nhập thành công", 201);
+                ], "Đăng nhập thành công", 201);
             $token = Str::random(80);
             $user->update([
                 "api_token" => $token
@@ -49,6 +52,64 @@ class AuthController extends Controller
             ], "Đăng nhập thành công", 201);
         }
     }
+
+
+    public function checkPhone(Request $request)
+    {
+        try {
+            $users = User::where("phone_number", $request->phone_number)->first();
+            if ($users) {
+                return $this->successResponse([], "Số điện thoại hợp lệ", 201);
+            } else {
+                return $this->errorResponse(
+                    "Số điện thoại không tồn tại",
+                    401
+                );
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+
+    public function resetPassword(Request $request)
+    {
+
+
+        $keyPath = storage_path("app/public/firebase/tcell-otp-firebase-adminsdk-dco6s-142601003c.json");
+        $auth = (new Factory)->withServiceAccount($keyPath)->createAuth();
+
+        try {
+
+            $user = User::where("phone_number", $request->phone_number)->first();
+            if ($user) {
+                $ptn = "/^0/";  // Regex
+                $str = $request->phone_number; //Your input, perhaps $_POST['textbox'] or whatever
+                $rpltxt = "+84";  // Replacement string
+                $phoneOtp = preg_replace($ptn, $rpltxt, $str);
+                $userPhoneNumber = $phoneOtp;
+                try {
+                    $info = $auth->getUserByPhoneNumber($userPhoneNumber);
+                } catch (\Throwable $th) {
+                    return $this->errorResponse('Số điện thoại chưa được xác thực trên hệ thống!', 401);
+                }
+                User::where('id', $user->id)->update([
+                    'password' => Hash::make($request['password']),
+                    'api_token' => Str::random(60)
+                ]);
+                return $this->successResponse([], "Lấy lại mật khẩu thành công", 201);
+            } else {
+                return $this->errorResponse(
+                    "Người dùng không tồn tại",
+                    401
+                );
+            }
+        } catch (Exception $e) {
+            return $this->errorResponse('Số điện thoại chưa được xác thực trên hệ thống!', 401);
+        }
+    }
+
+
+
     public function register(Request $request)
     {
         try {

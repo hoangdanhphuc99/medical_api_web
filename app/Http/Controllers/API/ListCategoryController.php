@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 use App\Repositories\Category\CategoryRepositoryInterface;
-use App\models\Category;
+use App\Models\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
