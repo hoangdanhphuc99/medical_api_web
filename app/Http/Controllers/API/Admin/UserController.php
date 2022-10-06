@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\API\Admin;
 use Illuminate\Http\Request;
-<<<<<<< HEAD
-=======
 
->>>>>>> 08b937cdcad2a5517d8b7aee7e560f81c57e913b
+
 use App\Http\Controllers\Controller;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Models\User;

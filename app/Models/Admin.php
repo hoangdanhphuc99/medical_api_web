@@ -16,7 +16,6 @@ class Admin extends Model
         'phone_number',
         'address',
         "sex"
-
     ];
     static function adminInfo()
     {

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API\Admin;
+
 use App\Models\Admin;
 use Hash;
 use Str;
@@ -19,7 +20,8 @@ class AuthController extends Controller
     {
         //
     }
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $user = Admin::where('phone_number', $request->phone_number)->first();
 
         if (!$user) {
@@ -28,15 +30,15 @@ class AuthController extends Controller
 
         if (!Hash::check($request->password, $user->password)) {
             return $this->errorResponse('Tài khoản hoặc mật khẩu không đúng', 401);
-        }    else {
+        } else {
             $token_admin = Admin::where('phone_number', $request->phone_number)->first()->api_token;
-            if($token_admin)
-            return $this->successResponse([
-                "token" =>  $token_admin,
-                "user" => $user
+            if ($token_admin)
+                return $this->successResponse([
+                    "token" =>  $token_admin,
+                    "user" => $user
 
 
-            ], "Đăng nhập thành công", 201);
+                ], "Đăng nhập thành công", 201);
             $token = Str::random(80);
             $user->update([
                 "api_token" => $token
@@ -110,7 +112,7 @@ class AuthController extends Controller
     public function checkPhone(Request $request)
     {
         try {
-            $admin = Admin::where("phone_number" , $request->phone_number)->first();
+            $admin = Admin::where("phone_number", $request->phone_number)->first();
             if ($admin) {
                 return $this->successResponse([], "Số điện thoại hợp lệ", 201);
             } else {
@@ -144,7 +146,6 @@ class AuthController extends Controller
                     $info = $auth->getUserByPhoneNumber($userPhoneNumber);
                 } catch (\Throwable $th) {
                     return $this->errorResponse('Số điện thoại chưa được xác thực trên hệ thống!', 401);
-
                 }
                 Admin::where('id', $user->id)->update([
                     'password' => Hash::make($request['password']),
@@ -159,6 +160,35 @@ class AuthController extends Controller
             }
         } catch (Exception $e) {
             return $this->errorResponse('Số điện thoại chưa được xác thực trên hệ thống!', 401);
+        }
+    }
+
+    public function updateInfo(Request $request)
+    {
+        try {
+            $user = Admin::adminInfo();
+            if (!$user)
+                return $this->errorResponse(
+                    "Người dùng không tồn tại",
+                    401
+                );
+            $user->name = $request->name;
+            $user->phone_number =  $request->phone_number;
+            $user->email =  $request->email;
+            $user->sex =  $request->sex;
+            $user->address =  $request->address;
+
+            if ($request->has("password") && !empty($request['password'])) {
+                $user->password =  $request->password;
+            }
+            $user->save();
+            return $this->successResponse(
+                $user,
+                null,
+                201
+            );
+        } catch (\Throwable $th) {
+            throw $th;
         }
     }
 

@@ -33,9 +33,10 @@ Route::group([], function () {
 
     Route::middleware('auth_user:api')->group(function () {
         Route::get('/profile', 'App\Http\Controllers\API\AuthController@info');
+        Route::put('/profile', 'App\Http\Controllers\API\AuthController@updateInfo')->name('user.update');
 
         // Route::apiResource('categories', App\Http\Controllers\API\ListCategoryController::class);
-        Route::group(['prefix' => 'categories'], function () {
+        Route::group(['prefix' => 'posts_categories'], function () {
 
 
             Route::get('/', 'App\Http\Controllers\API\ListCategoryController@index');
@@ -66,8 +67,9 @@ Route::group([
 
     Route::middleware('auth_admin:api')->group(function () {
         Route::get('/profile', 'App\Http\Controllers\API\Admin\AuthController@info');
+        Route::put('/profile', 'App\Http\Controllers\API\Admin\AuthController@updateInfo')->name('user.update');
 
-        Route::apiResource('categories', App\Http\Controllers\API\Admin\ListCategoryController::class);
+        Route::apiResource('posts_categories', App\Http\Controllers\API\Admin\ListCategoryController::class);
         Route::post('/upload/images', 'App\Http\Controllers\API\Admin\UploadController@uploadImg');
 
         Route::apiResource('posts', App\Http\Controllers\API\Admin\PostController::class);

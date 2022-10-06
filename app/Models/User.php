@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Models;
+
+use App\Traits\Filterable;
 use Request;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -11,7 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable , Filterable;
 
     /**
      * The attributes that are mass assignable.
@@ -34,6 +36,24 @@ class User extends Authenticatable
         "weight",
         "service_point",
         "other_info",
+        "avatar"
+    ];
+
+    protected $filterable = [
+        'name',
+        'email',
+        'phone_number',
+
+
+    ];
+
+
+    protected $searchable = [
+        "id",
+        'name',
+        'phone_number',
+        'email',
+
     ];
 
     static function userInfo()

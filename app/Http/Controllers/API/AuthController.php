@@ -108,7 +108,35 @@ class AuthController extends Controller
         }
     }
 
+    public function updateInfo(Request $request)
+    {
+        try {
+            $user = User::userInfo();
+            if (!$user)
+                return $this->errorResponse(
+                    "Người dùng không tồn tại",
+                    401
+                );
+            $user->name = $request->name;
+            $user->phone_number =  $request->phone_number;
+            $user->email =  $request->email;
+            $user->sex =  $request->sex;
+            $user->address =  $request->address;
+            $user->avatar =  $request->avatar;
 
+            if ($request->has("password") && !empty($request['password'])) {
+                $user->password =  $request->password;
+            }
+            $user->save();
+            return $this->successResponse(
+                $user,
+                null,
+                201
+            );
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 
     public function register(Request $request)
     {

@@ -40,7 +40,7 @@ class PostController extends Controller
     {
         try {
             $result = $this->PostRepo->create([
-                'image_URL' => $request->image_URL,
+                'image_url' => $request->image_url,
                 'name' => $request->name,
                 'status' => $request->status,
                 'description' => $request->description,
@@ -95,7 +95,7 @@ class PostController extends Controller
                     403
                 );
             $result = $this->PostRepo->update($id, [
-                'image_URL' => $request->image_URL,
+                'image_url' => $request->image_url,
                 'name' => $request->name,
                 'status' => $request->status,
                 'description' => $request->description,

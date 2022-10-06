@@ -43,7 +43,7 @@ class ListCategoryController extends Controller
             $result = $this->CategoryRepo->create([
 
                 'title' => $request->title,
-                'content' => $request->content,
+                'description' => $request->description,
                 'image_url' => $request->image_url
             ]);
             return $this->successResponse(
@@ -94,7 +94,7 @@ class ListCategoryController extends Controller
                 );
             $result = $this->CategoryRepo->update($id, [
                 'title' => $request->title,
-                'content' => $request->content,
+                'description' => $request->description,
                 'image_url' => $request->image_url
 
             ]);
