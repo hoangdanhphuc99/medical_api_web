@@ -22,16 +22,16 @@ class AuthController extends Controller
     {
         //
     }
-    public function login(LoginAdminRequest $request)
+    public function login(Request $request)
     {
         $user = Admin::where('phone_number', $request->phone_number)->first();
 
         if (!$user) {
-            return $this->errorResponse('Tên tài khoản không tồn tại', 401);
+            return $this->errorResponse('Số điện thoại hoặc mật khẩu không hợp lệ', 401);
         }
 
         if (!Hash::check($request->password, $user->password)) {
-            return $this->errorResponse('Tài khoản hoặc mật khẩu không đúng', 401);
+            return $this->errorResponse('Số điện thoại hoặc mật khẩu không hợp lệ', 401);
         } else {
             $token_admin = Admin::where('phone_number', $request->phone_number)->first()->api_token;
             if ($token_admin)
