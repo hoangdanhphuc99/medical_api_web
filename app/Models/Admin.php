@@ -17,6 +17,11 @@ class Admin extends Model
         'address',
         "sex"
     ];
+    protected $hidden = [
+        'password',
+        'remember_token',
+        'api_token'
+    ];
     static function adminInfo()
     {
         $token  = Request::header('admin_token') ?? null;
