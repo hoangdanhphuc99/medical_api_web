@@ -73,7 +73,7 @@ class AuthController extends Controller
     {
         $user = Admin::adminInfo();
         if ($user)
-            return $this->successResponse($user, 200);
+        return $this->successResponse($user, null,200);
         else
             return $this->errorResponse("Token không tồn tại", 401);
     }
