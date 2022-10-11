@@ -93,7 +93,7 @@ class AuthController extends Controller
                     return $this->errorResponse('Số điện thoại chưa được xác thực trên hệ thống!', 401);
                 }
                 User::where('id', $user->id)->update([
-                    'password' => Hash::make($request['password']),
+                    'password' => Hash::make($request['new_password']),
                     'api_token' => Str::random(60)
                 ]);
                 return $this->successResponse([], "Lấy lại mật khẩu thành công", 201);
