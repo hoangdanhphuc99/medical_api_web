@@ -123,10 +123,14 @@ class AuthController extends Controller
             $user->sex =  $request->sex;
             $user->address =  $request->address;
             $user->avatar =  $request->avatar;
+            $user->birthday =  $request->birthday;
+            $user->height =  $request->height;
+            $user->job =  $request->job;
+            $user->other_info =  $request->other_info;
+            $user->pathology =  $request->pathology;
+            $user->service_point =  $request->service_point;
 
-            if ($request->has("password") && !empty($request['password'])) {
-                $user->password =  $request->password;
-            }
+            $user->weight =  $request->weight;      
             $user->save();
             return $this->successResponse(
                 $user,
